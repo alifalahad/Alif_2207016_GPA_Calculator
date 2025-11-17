@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# Alif_2207016_GPA_Calculator
-=======
 # GPA Calculator
 
 A JavaFX-based Student Grading System (GPA Calculator) application based on the requirements in GG.txt.
@@ -29,16 +26,15 @@ A JavaFX-based Student Grading System (GPA Calculator) application based on the 
 - Back to Home button
 
 ## Grade Scale
-- A+/A: 4.0
-- A-: 3.7
-- B+: 3.3
-- B: 3.0
-- B-: 2.7
-- C+: 2.3
-- C: 2.0
-- C-: 1.7
-- D+: 1.3
-- D: 1.0
+- A+: 4.0
+- A: 3.75
+- A-: 3.50
+- B+: 3.25
+- B: 3.00
+- B-: 2.75
+- C+: 2.50
+- C: 2.25
+- D: 2.00
 - F: 0.0
 
 ## Project Structure
@@ -95,4 +91,3 @@ mvn clean javafx:run
 - Simple Scene Builder-style design
 - Input validation and user feedback
 - Disabled GPA button until credits requirement met
->>>>>>> 638ce74 (gpa calculator project)
