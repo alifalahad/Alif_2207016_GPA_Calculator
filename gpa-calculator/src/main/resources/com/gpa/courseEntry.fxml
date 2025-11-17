@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.gpa.controller.CourseEntryController" 
+            styleClass="root">
+    
+    <top>
+        <VBox alignment="CENTER" styleClass="header-section">
+            <padding>
+                <Insets top="15" right="15" bottom="15" left="15"/>
+            </padding>
+            <Label text="Course Entry" styleClass="header-label">
+                <font>
+                    <Font name="System Bold" size="22"/>
+                </font>
+            </Label>
+        </VBox>
+    </top>
+    
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <!-- Total Credits Section -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Set Total Credits:" prefWidth="120">
+                    <font>
+                        <Font name="System Bold" size="14"/>
+                    </font>
+                </Label>
+                <TextField fx:id="totalCreditField" promptText="e.g., 15" prefWidth="100"/>
+                <Button text="Set" onAction="#handleSetTotalCredits" styleClass="secondary-button"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="currentCreditLabel" text="Current Credits: 0.0" styleClass="info-label">
+                    <font>
+                        <Font name="System Bold" size="12"/>
+                    </font>
+                </Label>
+            </HBox>
+            
+            <Separator/>
+            
+            <!-- Course Input Form -->
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120" prefWidth="120"/>
+                    <ColumnConstraints minWidth="200" prefWidth="250"/>
+                </columnConstraints>
+                
+                <Label text="Course Name:" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <font>
+                        <Font size="13"/>
+                    </font>
+                </Label>
+                <TextField fx:id="courseNameField" promptText="e.g., Data Structures" 
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                
+                <Label text="Course Code:" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <font>
+                        <Font size="13"/>
+                    </font>
+                </Label>
+                <TextField fx:id="courseCodeField" promptText="e.g., CSE201" 
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                
+                <Label text="Course Credit:" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                    <font>
+                        <Font size="13"/>
+                    </font>
+                </Label>
+                <TextField fx:id="courseCreditField" promptText="e.g., 3" 
+                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                
+                <Label text="Teacher 1 Name:" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                    <font>
+                        <Font size="13"/>
+                    </font>
+                </Label>
+                <TextField fx:id="teacher1Field" promptText="e.g., Dr. Smith" 
+                           GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                
+                <Label text="Teacher 2 Name:" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                    <font>
+                        <Font size="13"/>
+                    </font>
+                </Label>
+                <TextField fx:id="teacher2Field" promptText="e.g., Dr. Johnson" 
+                           GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+                
+                <Label text="Grade:" GridPane.columnIndex="0" GridPane.rowIndex="5">
+                    <font>
+                        <Font size="13"/>
+                    </font>
+                </Label>
+                <ComboBox fx:id="gradeComboBox" promptText="Select Grade" 
+                          GridPane.columnIndex="1" GridPane.rowIndex="5" prefWidth="250"/>
+            </GridPane>
+            
+            <Button text="Add Course" onAction="#handleAddCourse" 
+                    styleClass="primary-button" prefWidth="150" prefHeight="35">
+                <font>
+                    <Font name="System Bold" size="13"/>
+                </font>
+            </Button>
+            
+            <Separator/>
+            
+            <!-- Courses Display -->
+            <Label text="Added Courses:" styleClass="section-label">
+                <font>
+                    <Font name="System Bold" size="14"/>
+                </font>
+            </Label>
+            <TableView fx:id="coursesTable" prefHeight="250">
+                <columns>
+                    <TableColumn fx:id="nameColumn" text="Course Name" prefWidth="150"/>
+                    <TableColumn fx:id="codeColumn" text="Code" prefWidth="80"/>
+                    <TableColumn fx:id="creditColumn" text="Credit" prefWidth="60"/>
+                    <TableColumn fx:id="teacher1Column" text="Teacher 1" prefWidth="120"/>
+                    <TableColumn fx:id="teacher2Column" text="Teacher 2" prefWidth="120"/>
+                    <TableColumn fx:id="gradeColumn" text="Grade" prefWidth="60"/>
+                    <TableColumn fx:id="deleteColumn" text="Delete" prefWidth="80"/>
+                </columns>
+            </TableView>
+            
+            <Button fx:id="calculateGPAButton" text="Calculate GPA" onAction="#handleCalculateGPA" 
+                    styleClass="success-button" prefWidth="200" prefHeight="40">
+                <font>
+                    <Font name="System Bold" size="14"/>
+                </font>
+            </Button>
+            
+            <Separator/>
+            
+            <!-- Navigation Buttons -->
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="← Back to Home" onAction="#handleBackToHome" 
+                        styleClass="secondary-button" prefWidth="150" prefHeight="35">
+                    <font>
+                        <Font size="12"/>
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

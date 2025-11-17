@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.gpa.controller.GPAResultController" 
+            styleClass="root">
+    
+    <top>
+        <VBox alignment="CENTER" styleClass="result-header">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <Label text="🎓 GPA CERTIFICATE 🎓" styleClass="certificate-title">
+                <font>
+                    <Font name="System Bold" size="26"/>
+                </font>
+            </Label>
+            <Label text="Academic Performance Summary" styleClass="certificate-subtitle">
+                <font>
+                    <Font size="16"/>
+                </font>
+            </Label>
+        </VBox>
+    </top>
+    
+    <center>
+        <VBox spacing="20" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30"/>
+            </padding>
+            
+            <!-- GPA Display -->
+            <VBox alignment="CENTER" spacing="10" styleClass="gpa-box">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <Label text="Your GPA" styleClass="gpa-title">
+                    <font>
+                        <Font name="System Bold" size="18"/>
+                    </font>
+                </Label>
+                <Label fx:id="gpaLabel" text="0.00" styleClass="gpa-value">
+                    <font>
+                        <Font name="System Bold" size="48"/>
+                    </font>
+                </Label>
+                <Label fx:id="totalCreditsLabel" text="0.0" styleClass="credit-label" 
+                       textFill="#555">
+                    <font>
+                        <Font size="14"/>
+                    </font>
+                </Label>
+                <Label text="Total Credits Completed" textFill="#777">
+                    <font>
+                        <Font size="12"/>
+                    </font>
+                </Label>
+            </VBox>
+            
+            <Separator/>
+            
+            <!-- Course Details -->
+            <VBox spacing="5">
+                <Label text="Course Details:" styleClass="section-title">
+                    <font>
+                        <Font name="System Bold" size="16"/>
+                    </font>
+                </Label>
+                
+                <ScrollPane fitToWidth="true" prefHeight="300" styleClass="courses-scroll">
+                    <VBox fx:id="coursesContainer" spacing="8" styleClass="courses-list">
+                        <padding>
+                            <Insets top="10" right="10" bottom="10" left="10"/>
+                        </padding>
+                    </VBox>
+                </ScrollPane>
+            </VBox>
+            
+            <HBox spacing="15" alignment="CENTER">
+                <Button text="← Back to Home" onAction="#handleBackToHome" 
+                        styleClass="secondary-button" prefWidth="150" prefHeight="35">
+                    <font>
+                        <Font name="System Bold" size="13"/>
+                    </font>
+                </Button>
+                <Button text="↻ New Calculator" onAction="#handleNewCalculator" 
+                        styleClass="primary-button" prefWidth="150" prefHeight="35">
+                    <font>
+                        <Font name="System Bold" size="13"/>
+                    </font>
+                </Button>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>
