@@ -3,42 +3,92 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.gpa.controller.HomeController" 
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.gpa.controller.HomeController"
             styleClass="root">
-    
+
     <center>
-        <VBox alignment="CENTER" spacing="30">
+        <VBox alignment="TOP_CENTER" spacing="25">
             <padding>
-                <Insets top="50" right="50" bottom="50" left="50"/>
+                <Insets top="40" right="40" bottom="40" left="40"/>
             </padding>
-            
+
             <Label text="Welcome to GPA Calculator" styleClass="title-label">
                 <font>
                     <Font name="System Bold" size="28"/>
                 </font>
             </Label>
-            
+
             <Label text="Calculate your Grade Point Average easily" styleClass="subtitle-label">
                 <font>
                     <Font size="16"/>
                 </font>
             </Label>
-            
-            <Label text="This application helps you track your courses and calculate your overall GPA." 
-                   wrapText="true" maxWidth="400" textAlignment="CENTER" styleClass="description-label">
+
+            <Label text="Please create an account or log in with your roll number to store GPA history." 
+                   wrapText="true" maxWidth="600" textAlignment="CENTER" styleClass="description-label">
                 <font>
                     <Font size="14"/>
                 </font>
             </Label>
-            
-            <Button text="Start GPA Calculator" onAction="#handleStartButton" 
-                    styleClass="primary-button" prefWidth="200" prefHeight="50">
-                <font>
-                    <Font name="System Bold" size="16"/>
-                </font>
-            </Button>
+
+            <HBox spacing="20" alignment="TOP_CENTER">
+                <VBox spacing="10" prefWidth="280">
+                    <Label text="Existing User Login" styleClass="section-label">
+                        <font>
+                            <Font name="System Bold" size="16"/>
+                        </font>
+                    </Label>
+                    <TextField fx:id="loginRollField" promptText="Roll Number"/>
+                    <PasswordField fx:id="loginPasswordField" promptText="Password"/>
+                    <Button text="Log In" onAction="#handleLogin" styleClass="primary-button" prefHeight="40"/>
+                    <Label fx:id="loginStatusLabel" textFill="#c0392b"/>
+                </VBox>
+
+                <VBox spacing="10" prefWidth="280">
+                    <Label text="Create Account" styleClass="section-label">
+                        <font>
+                            <Font name="System Bold" size="16"/>
+                        </font>
+                    </Label>
+                    <TextField fx:id="registerRollField" promptText="Roll Number"/>
+                    <TextField fx:id="registerNameField" promptText="Full Name"/>
+                    <PasswordField fx:id="registerPasswordField" promptText="Password"/>
+                    <Button text="Register" onAction="#handleRegister" styleClass="secondary-button" prefHeight="40"/>
+                    <Label fx:id="registerStatusLabel" textFill="#27ae60"/>
+                </VBox>
+            </HBox>
+
+            <Separator/>
+
+            <VBox spacing="15" prefWidth="650">
+                <Label fx:id="userDetailsLabel" text="Please log in or register to continue." styleClass="subtitle-label"/>
+
+                <HBox spacing="15" alignment="CENTER">
+                    <Button fx:id="startCalculatorButton" text="Start GPA Calculator" onAction="#handleStartButton"
+                            styleClass="primary-button" prefWidth="220" prefHeight="45" disable="true"/>
+                    <Button fx:id="logoutButton" text="Log Out" onAction="#handleLogout"
+                            styleClass="secondary-button" prefWidth="120" disable="true"/>
+                </HBox>
+
+                <Label text="Saved GPA History" styleClass="section-label">
+                    <font>
+                        <Font name="System Bold" size="16"/>
+                    </font>
+                </Label>
+
+                <TableView fx:id="historyTable" prefHeight="220">
+                    <columns>
+                        <TableColumn fx:id="dateColumn" text="Calculated On" prefWidth="300"/>
+                        <TableColumn fx:id="gpaColumn" text="GPA" prefWidth="120"/>
+                        <TableColumn fx:id="creditsColumn" text="Total Credits" prefWidth="150"/>
+                    </columns>
+                    <placeholder>
+                        <Label text="No calculation history yet."/>
+                    </placeholder>
+                </TableView>
+            </VBox>
         </VBox>
     </center>
 </BorderPane>

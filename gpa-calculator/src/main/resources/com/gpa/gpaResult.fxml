@@ -23,6 +23,11 @@
                     <Font size="16"/>
                 </font>
             </Label>
+            <Label fx:id="userSummaryLabel" text="Student: --" styleClass="description-label">
+                <font>
+                    <Font size="14"/>
+                </font>
+            </Label>
         </VBox>
     </top>
     

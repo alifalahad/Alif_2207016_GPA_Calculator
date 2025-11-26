@@ -2,6 +2,8 @@ package com.gpa.controller;
 
 import com.gpa.GPACalculatorApp;
 import com.gpa.model.Course;
+import com.gpa.model.User;
+import com.gpa.session.UserSession;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -13,8 +15,10 @@ public class GPAResultController {
     @FXML private VBox coursesContainer;
     @FXML private Label gpaLabel;
     @FXML private Label totalCreditsLabel;
+    @FXML private Label userSummaryLabel;
 
     public void setCourses(List<Course> courses, double totalCredits) {
+        coursesContainer.getChildren().clear();
         double totalPoints = 0.0;
         double totalCreditSum = 0.0;
 
@@ -36,9 +40,22 @@ public class GPAResultController {
             totalCreditSum += course.getCourseCredit();
         }
 
-        double gpa = totalPoints / totalCreditSum;
+        double gpa = totalCreditSum == 0 ? 0.0 : totalPoints / totalCreditSum;
         gpaLabel.setText(String.format("%.2f", gpa));
         totalCreditsLabel.setText(String.format("%.1f", totalCreditSum));
+        updateUserSummary();
+    }
+
+    private void updateUserSummary() {
+        if (userSummaryLabel == null) {
+            return;
+        }
+        User currentUser = UserSession.getCurrentUser();
+        if (currentUser == null) {
+            userSummaryLabel.setText("No user information available.");
+        } else {
+            userSummaryLabel.setText(String.format("Student: %s (Roll: %s)", currentUser.getName(), currentUser.getRoll()));
+        }
     }
 
     @FXML

@@ -1,6 +1,12 @@
 package com.gpa.controller;
 
+import com.gpa.GPACalculatorApp;
+import com.gpa.db.DatabaseManager;
 import com.gpa.model.Course;
+import com.gpa.model.User;
+import com.gpa.session.UserSession;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -8,8 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,7 @@ public class CourseEntryController {
     @FXML private ComboBox<String> gradeComboBox;
     @FXML private TextField totalCreditField;
     @FXML private Label currentCreditLabel;
+    @FXML private Label sessionUserLabel;
     @FXML private TableView<Course> coursesTable;
     @FXML private TableColumn<Course, String> nameColumn;
     @FXML private TableColumn<Course, String> codeColumn;
@@ -45,6 +50,21 @@ public class CourseEntryController {
         ));
         calculateGPAButton.setDisable(true);
         currentCreditLabel.setText("Current Credits: 0.0");
+
+        User currentUser = UserSession.getCurrentUser();
+        if (sessionUserLabel != null) {
+            if (currentUser == null) {
+                sessionUserLabel.setText("No active user. Please log in from the home screen.");
+            } else {
+                sessionUserLabel.setText(String.format("Logged in as %s (Roll: %s)", currentUser.getName(), currentUser.getRoll()));
+            }
+        }
+
+        if (currentUser == null) {
+            showAlert("Login Required", "Please log in again to continue adding course history.");
+            navigateHome();
+            return;
+        }
         
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("courseName"));
         codeColumn.setCellValueFactory(new PropertyValueFactory<>("courseCode"));
@@ -140,12 +160,20 @@ public class CourseEntryController {
 
     @FXML
     private void handleCalculateGPA() {
+        if (courses.isEmpty()) {
+            showAlert("No Courses", "Please add at least one course before calculating GPA.");
+            return;
+        }
+
         try {
+            List<Course> courseSnapshot = new ArrayList<>(courses);
+            persistCalculationSnapshot(courseSnapshot);
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/gpa/gpaResult.fxml"));
             Parent root = loader.load();
 
             GPAResultController resultController = loader.getController();
-            resultController.setCourses(new ArrayList<>(courses), requiredTotalCredits);
+            resultController.setCourses(courseSnapshot, requiredTotalCredits);
 
             Stage stage = (Stage) calculateGPAButton.getScene().getWindow();
             Scene scene = new Scene(root, 800, 700);
@@ -182,6 +210,23 @@ public class CourseEntryController {
         gradeComboBox.setValue(null);
     }
 
+    private void persistCalculationSnapshot(List<Course> courseSnapshot) {
+        User user = UserSession.getCurrentUser();
+        if (user == null || courseSnapshot.isEmpty()) {
+            return;
+        }
+        DatabaseManager.getInstance().saveCalculation(user, courseSnapshot);
+    }
+
+    private void navigateHome() {
+        try {
+            GPACalculatorApp.showHomeScreen();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showAlert("Error", "Failed to return to home screen!");
+        }
+    }
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -192,11 +237,6 @@ public class CourseEntryController {
     
     @FXML
     private void handleBackToHome() {
-        try {
-            com.gpa.GPACalculatorApp.showHomeScreen();
-        } catch (Exception e) {
-            e.printStackTrace();
-            showAlert("Error", "Failed to return to home screen!");
-        }
+        navigateHome();
     }
 }

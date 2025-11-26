@@ -18,6 +18,11 @@
                     <Font name="System Bold" size="22"/>
                 </font>
             </Label>
+            <Label fx:id="sessionUserLabel" text="User: --" styleClass="subtitle-label">
+                <font>
+                    <Font size="14"/>
+                </font>
+            </Label>
         </VBox>
     </top>
     

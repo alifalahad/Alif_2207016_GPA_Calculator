@@ -1,6 +1,10 @@
-com/gpa/controller/CourseEntryController$1.class
+com/gpa/model/User.class
 com/gpa/model/Course.class
 com/gpa/controller/HomeController.class
 com/gpa/controller/GPAResultController.class
+com/gpa/db/DatabaseManager.class
 com/gpa/GPACalculatorApp.class
+com/gpa/session/UserSession.class
+com/gpa/controller/CourseEntryController$1.class
+com/gpa/model/CalculationHistory.class
 com/gpa/controller/CourseEntryController.class

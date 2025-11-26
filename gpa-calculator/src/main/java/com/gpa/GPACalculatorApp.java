@@ -1,5 +1,6 @@
 package com.gpa;
 
+import com.gpa.db.DatabaseManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,6 +15,7 @@ public class GPACalculatorApp extends Application {
     public void start(Stage stage) throws Exception {
         primaryStage = stage;
         primaryStage.setTitle("GPA Calculator");
+        DatabaseManager.getInstance();
         showHomeScreen();
         primaryStage.show();
     }

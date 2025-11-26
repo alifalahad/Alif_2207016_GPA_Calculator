@@ -5,7 +5,14 @@ A JavaFX-based Student Grading System (GPA Calculator) application based on the 
 ## Features
 
 ### Home Screen
-- Welcome message with "Start GPA Calculator" button
+- Register a new account with roll number, name, and password
+- Log in with roll + password to unlock the calculator
+- View previously saved GPA calculations for the logged in student
+- Start the GPA calculator or log out of the active session
+
+### Persistent Accounts & History
+- SQLite database stored at `~/.gpa-calculator/gpa-calculator.db` keeps user credentials secure on the local machine
+- Every GPA calculation saves the entered courses, credits, and GPA under the authenticated roll number for future viewing
 
 ### Course Entry Screen
 - Set total required credits
@@ -26,15 +33,16 @@ A JavaFX-based Student Grading System (GPA Calculator) application based on the 
 - Back to Home button
 
 ## Grade Scale
-- A+: 4.0
-- A: 3.75
-- A-: 3.50
-- B+: 3.25
-- B: 3.00
-- B-: 2.75
-- C+: 2.50
-- C: 2.25
-- D: 2.00
+- A+/A: 4.0
+- A-: 3.7
+- B+: 3.3
+- B: 3.0
+- B-: 2.7
+- C+: 2.3
+- C: 2.0
+- C-: 1.7
+- D+: 1.3
+- D: 1.0
 - F: 0.0
 
 ## Project Structure
@@ -76,12 +84,12 @@ mvn clean javafx:run
 
 ## Usage Instructions
 
-1. **Home Screen**: Click "Start GPA Calculator"
-2. **Set Total Credits**: Enter the total credits required (e.g., 15) and click "Set"
-3. **Add Courses**: Fill in course details and click "Add Course" for each course
-4. **Calculate GPA**: Once total credits are met, click "Calculate GPA"
-5. **View Results**: See your GPA displayed in a certificate-style format
-6. **Return Home**: Click "Back to Home" to start over
+1. **Home Screen**: Register with your roll, name, and password or log in with an existing account.
+2. **Start Calculator**: Once authenticated, click "Start GPA Calculator" to enter courses.
+3. **Set Total Credits**: Enter the required credits (e.g., 15) and click "Set".
+4. **Add Courses**: Fill in course details and click "Add Course" until you reach the required credits.
+5. **Calculate GPA**: Click "Calculate GPA" to view results; the calculation is automatically stored for the logged in user.
+6. **View History**: Return to the home screen to review your saved GPA history or start another calculation.
 
 ## Design Guidelines Followed
 - Clean FXML + Controller structure
